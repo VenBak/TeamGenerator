@@ -1,0 +1,29 @@
+{
+  "name": "teamgenerator",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "directories": {
+    "lib": "lib"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/VenBak/TeamGenerator.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/VenBak/TeamGenerator/issues"
+  },
+  "homepage": "https://github.com/VenBak/TeamGenerator#readme",
+  "dependencies": {
+    "inquirer": "^8.2.5",
+    "path": "^0.12.7"
+  },
+  "devDependencies": {
+    "jest": "^29.4.1"
+  }
+}
