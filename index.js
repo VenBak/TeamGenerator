@@ -207,7 +207,7 @@ const addtoHTML = (employee) => {
                 <p class="card-subtitle">Name: ${employee.name}</p>
                 <a class="card-text" href="mailto:${employee.email}">Email: ${employee.email}</a>
                 <p class="card-text">ID: ${employee.id}</p>
-                <a class="card-text" href="github.com/${employee.github}">Github: ${employee.github}</a>
+                <a class="card-text" href="https://github.com/${employee.github}" target="_blank">Github: ${employee.github}</a>
             </div>
         </div>
         `
