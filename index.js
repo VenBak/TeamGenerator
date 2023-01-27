@@ -1,36 +1,3 @@
-// Console log 'Welcome to team generator, Use 'npm run reset' to reset the dist/ folder'
-
-// Please build your team
-// 'What is your team manager's name ?'
-// 'What is the team manager's id ?
-// 'What is the team manager's email ?'
-// 'What is the team manager's office number ?'
-
-// 'Which type of team member would you like to add ?'
-// - Engineer *
-// - Intern
-// - I don't want to add any more team members
-
-// 'What is your engineer's name ?'
-// 'What is your engineer's id ?'
-// 'What is your engineer's email ?'
-// 'What is your engineer's github username ?'
-
-// 'Which type of team member would you like to add ?'
-// - Engineer 
-// - Intern *
-// - I don't want to add any more team members
-
-// 'What is your intern's name ?'
-// 'What is your intern's id ?
-// 'What is your intern's email ?'
-// 'What is your intern's school ?'
-
-// 'Which type of team member would you like to add ?'
-// - Engineer 
-// - Intern 
-// - I don't want to add any more team members *
-
 // Adds inquirer so the user can be prompted via the terminal
 const inquirer = require("inquirer")
 
@@ -45,7 +12,6 @@ const Employee = require('./lib/employee')
 const Manager = require('./lib/manager')
 const Engineer = require('./lib/engineer')
 const Intern = require('./lib/intern');
-const { equal } = require("assert");
 
 // Saves all of the employees inside this array called team
 const team = []
@@ -53,88 +19,71 @@ const team = []
 // Saves all of the ids inside of an array
 const idArray = []
 
-// const idArray = require('util/types');
-
 // Function for creating a Manager
 createManager = () => {
     inquirer.prompt([
+        // Asks for Manager's name
         { 
         type: "input",
         name: "name",
         message: "What is your team manager's name ?",
         }, 
+        // Asks for Manager's id
         { 
         type: "input",
         name: "id",
         message: "What is the team manager's id ?",
-        // Makes sure that the id is unique
-        // validate: (answer) => {
-        //     if (answer == idArray.forEach(equal())) {
-        //         return 'Please enter a unique id';
-        //     }
-        //     return 'true';
-        //     }
         },
+        // Asks for managers email
         { 
         type: "input",
         name: "email",
         message: "'What is the team manager's email ?",
         }, 
+        // Asks for managers office number
         {
         type: 'input',
         name: 'office',
         message: 'What is your Managers office room number ?'
         }
         ]).then(answers => {
-            const manager = new Manager(answers.name, answers.id, answers.email, answers.office)
+            // Uses the manager constructor to create an object with the answers the user has given
+            const manager = new Manager(answers.name, answers.email, answers.id, answers.office)
+            const employee = new Employee(answers.name, answers.email, answers.id, 'Manager')
+            // Adds constructed object to the add to HTML function which adds html tags to the data
             addtoHTML(manager);
+            // Pushes the constructed object to an array titled team
             team.push(manager)
+            // Pushes the inputed id to an array
             idArray.push(answers.id)
+            // Runs the function which asks the user if they wish to add another team member
             addTeamMember()
         })
 }
-    
-//     type: 'input',
-//     name: 'internSchool',
-//     message: 'What is your interns school ?',
-//     validate: (answer) => {
-//     if (answer !== '') {
-//         return true;
-//     }
-//     return 'Please enter at least one character.'
-//     }
-//     }
-// ])
-// .then((answers) => {
-//     const intern = new Intern(
-//     answers.internName,
-//     answers.internID,
-//     answers.internEmail,
-//     answers.InternSchool);
-//     teamMembers.push(intern)
-//     idArray.push(answers.internID)
-//     createTeam()
-// })
 
 // Function to create an Engineer
 const createEngineer = () => {
     inquirer
         .prompt([
             {
+            // Asks for the engineer's name
                 type: 'input',
                 name: 'name',
                 message: 'What is your engineers name ?'
             },
+            // Asks for the engineer's email
             {
                 type: 'input',
                 name: 'email',
                 message: 'What is your engineers email ?'
             },
+            // Asks for the engineer's ID
             {
                 type: 'input',
                 name: 'id',
                 message: 'What is your engineers ID ?'
             },
+            // Asks for the engineer's Github username
             {
                 type: 'input',
                 name: 'github',
@@ -142,33 +91,44 @@ const createEngineer = () => {
             }
         ])
         .then(answers => {
+            // Constructs an object using the answers that were given with the imported format from ./engineer.js
             const engineer = new Engineer(answers.name, answers.email, answers.id, answers.github);
+            // Creates another object for the specific role under the general class of employee
+            const employee = new Employee(answers.name, answers.email, answers.id, 'Engineer')
+            // Adds answers to a string which contains html tags
             addtoHTML(engineer);
+            // Pushes the object to an array called team
             team.push(engineer)
+            // Pushes the given id to an array call idArray
             idArray.push(answers.id)
+            // Runs the question whether the user wants to add another team member
             addTeamMember()
         });
 };
 
-// Function to create an Intern
+// Function to create an Intern Object
 const createIntern = () => {
     inquirer
         .prompt([
+            // Asks for the intern's name
             {
                 type: 'input',
                 name: 'name',
                 message: 'What is your interns name ?'
             },
+            // Asks for the intern's email address
             {
                 type: 'input',
                 name: 'email',
                 message: 'What is your interns email ?'
             },
+            // Asks for the interns ID number
             {
                 type: 'input',
                 name: 'id',
                 message: 'What is your interns ID ?'
             },
+            // Asks which school the intern has gone to
             {
                 type: 'input',
                 name: 'school',
@@ -176,10 +136,17 @@ const createIntern = () => {
             }
         ])
         .then(answers => {
+            // Creates a new Intern object using the imported constructor
             const intern = new Intern(answers.name, answers.email, answers.id, answers.school);
+            // Creates another object for the specific role under the general class of employee
+            const employee = new Employee(answers.name, answers.email, answers.id, 'Intern')
+            // Runs the object through a function which adds html tags and adds it to a string
             addtoHTML(intern);
+            // Pushes the object to an array called team
             team.push(intern)
+            // Pushes the given id to an array called id Array
             idArray.push(answers.id)
+            // Asks the user if they want another team member
             addTeamMember()
         });
 };
@@ -187,6 +154,7 @@ const createIntern = () => {
 // Function to add an extra team member
 addTeamMember = () => {
     inquirer.prompt([
+        // Asks if the user wants to add another team member and if yes what kind of role
         {
             type: 'list',
             name: 'role',
@@ -207,8 +175,6 @@ addTeamMember = () => {
                 break;
             case 'None':
                 console.log('Your team has succesfully been created!')
-                // console.log(idArray)
-                // console.log(team)
                 break;
         }
     })
@@ -219,7 +185,9 @@ var employeeHTML = "";
 
 // Function which creates html snippet
 const addtoHTML = (employee) => {
+    // Checks if the given parameter is an instance of the classes
     if(employee instanceof Manager){
+    // Adds to the string var of employeeHTML with the answers that were given from the user
       employeeHTML += `
         <div class="card">
             <div class="card-body">
@@ -279,11 +247,9 @@ var HTML =
  </body>
  </html>
  `
-
+// Creates a file called team.html with the content of the file being the variable HTML
  fs.writeFileSync(path.join(__dirname, 'team.html'), HTML)
 }
 
- 
-
- // Calls the create Manager function since at least one manager must be present
+ // Calls the create Manager function since there must be at least one
  createManager();
