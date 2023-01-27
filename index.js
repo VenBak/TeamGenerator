@@ -45,9 +45,14 @@ const Employee = require('./lib/employee')
 const Manager = require('./lib/manager')
 const Engineer = require('./lib/engineer')
 const Intern = require('./lib/intern');
+const { equal } = require("assert");
 
 // Saves all of the employees inside this array called team
 const team = []
+
+// Saves all of the ids inside of an array
+const idArray = []
+
 // const idArray = require('util/types');
 
 // Function for creating a Manager
@@ -62,6 +67,13 @@ createManager = () => {
         type: "input",
         name: "id",
         message: "What is the team manager's id ?",
+        // Makes sure that the id is unique
+        // validate: (answer) => {
+        //     if (answer == idArray.forEach(equal())) {
+        //         return 'Please enter a unique id';
+        //     }
+        //     return 'true';
+        //     }
         },
         { 
         type: "input",
@@ -77,6 +89,7 @@ createManager = () => {
             const manager = new Manager(answers.name, answers.id, answers.email, answers.office)
             addtoHTML(manager);
             team.push(manager)
+            idArray.push(answers.id)
             addTeamMember()
         })
 }
@@ -132,6 +145,7 @@ const createEngineer = () => {
             const engineer = new Engineer(answers.name, answers.email, answers.id, answers.github);
             addtoHTML(engineer);
             team.push(engineer)
+            idArray.push(answers.id)
             addTeamMember()
         });
 };
@@ -165,6 +179,7 @@ const createIntern = () => {
             const intern = new Intern(answers.name, answers.email, answers.id, answers.school);
             addtoHTML(intern);
             team.push(intern)
+            idArray.push(answers.id)
             addTeamMember()
         });
 };
@@ -192,61 +207,80 @@ addTeamMember = () => {
                 break;
             case 'None':
                 console.log('Your team has succesfully been created!')
+                // console.log(idArray)
+                // console.log(team)
                 break;
         }
     })
 }
 
+// Creates a string variable for the HTML code 
+var employeeHTML = "";
+
 // Function which creates html snippet
 const addtoHTML = (employee) => {
-    let employeeHTML = "";
     if(employee instanceof Manager){
-      employeeHTML += `<div>
-            <h2>Manager</h2>
-            <p>Name: ${employee.name}</p>
-            <p>Email: ${employee.email}</p>
-            <p>ID: ${employee.id}</p>
-            <p>Office: ${employee.office}</p>
-        </div>`;
+      employeeHTML += `
+        <div class="card">
+            <div class="card-body">
+                <h2 class="card-title">Manager</h2>
+                <p class="card-subtitle">Name: ${employee.name}</p>
+                <p class="card-text">Email: ${employee.email}</p>
+                <p class="card-text">ID: ${employee.id}</p>
+                <p class="card-text">Office: ${employee.office}</p>
+            </div>
+        </div>
+        `
     } else if(employee instanceof Engineer){
-       employeeHTML += `<div>
-            <h2>Engineer</h2>
-            <p>Name: ${employee.name}</p>
-            <p>Email: ${employee.email}</p>
-            <p>ID: ${employee.id}</p>
-            <p>Github: ${employee.github}</p>`
+       employeeHTML += `
+        <div class="card">
+            <div class="card-body">
+                <h2 class="card-title">Engineer</h2>
+                <p class="card-subtitle">Name: ${employee.name}</p>
+                <p class="card-text">Email: ${employee.email}</p>
+                <p class="card-text">ID: ${employee.id}</p>
+                <p class="card-text">Github: ${employee.github}</p>
+            </div>
+        </div>
+        `
     } else if(employee instanceof Intern){
-        employeeHTML += `<div>
-                <h2>Intern</h2>
-                <p>Name: ${employee.name}</p>
-                <p>Email: ${employee.email}</p>
-                <p>ID: ${employee.id}</p>
-                <p>School: ${employee.school}</p>
-            </div>`
+        employeeHTML += `
+        <div class="card">
+            <div class="card-body">
+                <h2 class="card-title">Intern</h2>
+                <p class="card-subtitle">Name: ${employee.name}</p>
+                <p class="card-text">Email: ${employee.email}</p>
+                <p class="card-text">ID: ${employee.id}</p>
+                <p class="card-text">School: ${employee.school}</p>
+            </div>
+        </div>
+        `
  }
 
-//  `
-//  <!DOCTYPE html>
-//  <html lang="en">
-//  <head>
-//      <meta charset="UTF-8">
-//      <meta http-equiv="X-UA-Compatible" content="IE=edge">
-//      <meta name="viewport" content="width=device-width, initial-scale=1.0">
-//      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
-//      <title>Document</title>
-//  </head>
-//  <body>
-//      <header>
-//         Team work makes the dream work!
-//      </header>
-//      <main>
-//      ``
-//      </main>
-//  </body>
-//  </html>
-//  `
+// Inserts the team members HTML code snippet to the larger code snippet
+var HTML = 
+ `
+ <!DOCTYPE html>
+ <html lang="en">
+ <head>
+     <meta charset="UTF-8">
+     <meta http-equiv="X-UA-Compatible" content="IE=edge">
+     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+     <title>Document</title>
+ </head>
+ <body>
+     <header>
+        Team work makes the dream work!
+     </header>
+     <main>
+     `+ employeeHTML +`
+     </main>
+ </body>
+ </html>
+ `
 
- fs.writeFileSync(path.join(__dirname, 'team.html'), employeeHTML)
+ fs.writeFileSync(path.join(__dirname, 'team.html'), HTML)
 }
 
  
