@@ -193,7 +193,7 @@ const addtoHTML = (employee) => {
             <div class="card-body">
                 <h2 class="card-title">Manager</h2>
                 <p class="card-subtitle">Name: ${employee.name}</p>
-                <p class="card-text">Email: ${employee.email}</p>
+                <a class="card-text" href="mailto:${employee.email}">Email: ${employee.email}</a>
                 <p class="card-text">ID: ${employee.id}</p>
                 <p class="card-text">Office: ${employee.office}</p>
             </div>
@@ -205,9 +205,9 @@ const addtoHTML = (employee) => {
             <div class="card-body">
                 <h2 class="card-title">Engineer</h2>
                 <p class="card-subtitle">Name: ${employee.name}</p>
-                <p class="card-text">Email: ${employee.email}</p>
+                <a class="card-text" href="mailto:${employee.email}">Email: ${employee.email}</a>
                 <p class="card-text">ID: ${employee.id}</p>
-                <p class="card-text">Github: ${employee.github}</p>
+                <a class="card-text" href="github.com/${employee.github}">Github: ${employee.github}</a>
             </div>
         </div>
         `
@@ -217,7 +217,7 @@ const addtoHTML = (employee) => {
             <div class="card-body">
                 <h2 class="card-title">Intern</h2>
                 <p class="card-subtitle">Name: ${employee.name}</p>
-                <p class="card-text">Email: ${employee.email}</p>
+                <a class="card-text" href="mailto:${employee.email}">Email: ${employee.email}</a>
                 <p class="card-text">ID: ${employee.id}</p>
                 <p class="card-text">School: ${employee.school}</p>
             </div>
