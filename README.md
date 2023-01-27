@@ -46,6 +46,9 @@ Here's a screenshot of what your terminal should look like if you run this appli
 
 ![screenshot](./assets/images/app.png)
 
+Here's a video of what the application should look like:
+https://www.youtube.com/watch?v=ketToPSrSss 
+
 ## Credits
 
 Credits:
@@ -70,4 +73,7 @@ npm install --save-dev jest
 Here's what a successful run of the tests should look like:
 
 ![screenshot](./assets/images/test.png)
+
+or here is a video demonstrating what the tests should look like:
+https://www.youtube.com/watch?v=EYWXjF3x4SQ 
  
